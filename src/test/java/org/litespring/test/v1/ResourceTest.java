@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class ResourceTest {
 	@Test
 	public void testClassLoader(){
-		Resource resource = new ClassPathResource("petStore1.xml");
+		Resource resource = new ClassPathResource("petstore-v1.xml");
 
 		InputStream in = null;
 		try{
