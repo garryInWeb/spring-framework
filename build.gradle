@@ -477,6 +477,7 @@ project("spring-context") {
 		compile(project(":spring-beans"))
 		compile(project(":spring-core"))
 		compile(project(":spring-expression"))
+		compile(project(":spring-beans-groovy"))
 		compile(files(project(":spring-core").cglibRepackJar))
 		optional(project(":spring-instrument"))
 		optional("javax.inject:javax.inject:1")
@@ -549,6 +550,7 @@ project("spring-messaging") {
 		optional("org.eclipse.jetty.websocket:websocket-client:${jettyVersion}")
 		optional("com.fasterxml.jackson.core:jackson-databind:${jackson2Version}")
 		testCompile("javax.inject:javax.inject-tck:1")
+//		testCompile(":spring-messaging")
 		testCompile("javax.servlet:javax.servlet-api:3.1.0")
 		testCompile("javax.validation:validation-api:1.0.0.GA")
 		testCompile("com.thoughtworks.xstream:xstream:${xstreamVersion}")
@@ -816,7 +818,7 @@ project("spring-webmvc") {
 		compile(project(":spring-expression"))
 		compile(project(":spring-web"))
 		provided("javax.servlet:javax.servlet-api:3.1.0")
-		optional(project(":spring-context-support"))  // for Velocity support
+		compile(project(":spring-context-support"))  // for Velocity support
 		optional(project(":spring-oxm"))  // for MarshallingView
 		optional("javax.servlet.jsp:javax.servlet.jsp-api:2.2.1")
 		optional("javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1")
@@ -971,6 +973,7 @@ project("spring-websocket") {
 		}
 		optional("com.fasterxml.jackson.core:jackson-databind:${jackson2Version}")
 		testCompile("org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}")
+		testCompile(project(":spring-messaging"))
 		testCompile("org.apache.tomcat.embed:tomcat-embed-websocket:${tomcatVersion}")
 		testCompile("io.projectreactor:reactor-net:${reactorVersion}")
 		testCompile("io.netty:netty-all:${nettyVersion}")
