@@ -79,6 +79,7 @@ public class XmlValidationModeDetector {
 
 
 	/**
+	 * 探测给与的文档的校验规则,决定使用DTD还是XSD
 	 * Detect the validation mode for the XML document in the supplied {@link InputStream}.
 	 * Note that the supplied {@link InputStream} is closed by this method before returning.
 	 * @param inputStream the InputStream to parse
@@ -92,6 +93,7 @@ public class XmlValidationModeDetector {
 		try {
 			boolean isDtdValidated = false;
 			String content;
+			// 这种通用的行读也出现在spring里面
 			while ((content = reader.readLine()) != null) {
 				content = consumeCommentTokens(content);
 				if (this.inComment || !StringUtils.hasText(content)) {
@@ -127,6 +129,7 @@ public class XmlValidationModeDetector {
 	}
 
 	/**
+	 * 返回提供的内容是否包含XML的开始标签'<'
 	 * Does the supplied content contain an XML opening tag. If the parse state is currently
 	 * in an XML comment then this method always returns false. It is expected that all comment
 	 * tokens will have consumed for the supplied content before passing the remainder to this method.
@@ -141,15 +144,19 @@ public class XmlValidationModeDetector {
 	}
 
 	/**
+	 * 消费所有的注解数据，返回剩余的内容，有可能是空的，因为提供的内容可能全部都是注解。我们的主要目的是去掉行内主要的注解内容，
+	 * 没有注解内容的为第一部分要么是 DOCTYPE 定义 要么是文档的根元素
 	 * Consumes all the leading comment data in the given String and returns the remaining content, which
 	 * may be empty since the supplied content might be all comment data. For our purposes it is only important
 	 * to strip leading comment content on a line since the first piece of non comment content will be either
 	 * the DOCTYPE declaration or the root element of the document.
 	 */
 	private String consumeCommentTokens(String line) {
+		// 不包含注解开头结尾的行直接返回
 		if (!line.contains(START_COMMENT) && !line.contains(END_COMMENT)) {
 			return line;
 		}
+		// {@link #inComment} 用来标记当前行是否在注解中
 		while ((line = consume(line)) != null) {
 			if (!this.inComment && !line.trim().startsWith(START_COMMENT)) {
 				return line;
@@ -159,10 +166,12 @@ public class XmlValidationModeDetector {
 	}
 
 	/**
+	 * 消耗下一个注解标记，更新 inComment 标记，返回剩余的内容
 	 * Consume the next comment token, update the "inComment" flag
 	 * and return the remaining content.
 	 */
 	private String consume(String line) {
+		// end 找到 注解最后的位置，start 找到注解符号后的位置
 		int index = (this.inComment ? endComment(line) : startComment(line));
 		return (index == -1 ? null : line.substring(index));
 	}

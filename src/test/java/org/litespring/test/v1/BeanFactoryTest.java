@@ -34,7 +34,7 @@ public class BeanFactoryTest {
 
         assertFalse(bd.isPrototype());
 
-        assertEquals(BeanDefinition.SCOPE_PROTOTYPE,bd.getScope());
+        assertEquals(BeanDefinition.SCOPE_SINGLETON,bd.getScope());
 
         assertEquals("org.litespring.service.v1.PetStoreService",bd.getBeanClassName());
 

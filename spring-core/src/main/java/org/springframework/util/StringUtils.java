@@ -987,6 +987,7 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 *
 	 * Tokenize the given {@code String} into a {@code String} array via a
 	 * {@link StringTokenizer}.
 	 * <p>Trims tokens and omits empty tokens.
