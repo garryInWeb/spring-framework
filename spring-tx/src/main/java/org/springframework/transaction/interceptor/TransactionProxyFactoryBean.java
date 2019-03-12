@@ -187,6 +187,9 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 
 	/**
 	 * Creates an advisor for this FactoryBean's TransactionInterceptor.
+	 *
+	 *
+	 * TODO  哪里调用的
 	 */
 	@Override
 	protected Object createMainInterceptor() {

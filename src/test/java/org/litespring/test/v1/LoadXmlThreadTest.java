@@ -13,7 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import static org.junit.Assert.*;
 
-public class BeanFactoryTest {
+public class LoadXmlThreadTest {
 
     DefaultListableBeanFactory factory;
     XmlBeanDefinitionReader reader;
@@ -25,44 +25,31 @@ public class BeanFactoryTest {
     @Test
     public void testBeanFactory(){
 
+        new Thread(() -> {
+            reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
+        }).start();
+        new Thread(() -> {
+            reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
+        }).start();
+
+        new Thread(() -> {
+            reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
+        }).start();
+
+        new Thread(() -> {
+            reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
+        }).start();
+
+        new Thread(() -> {
+            reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
+        }).start();
+
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+
+        }
         reader.loadBeanDefinitions(new ClassPathResource("petstore-v1.xml"));
-
-        // singleton 测试
-        BeanDefinition bd = factory.getBeanDefinition("petStore");
-
-        assertTrue(bd.isSingleton());
-
-        assertFalse(bd.isPrototype());
-
-//        assertEquals(BeanDefinition.SCOPE_SINGLETON,bd.getScope());
-
-        assertEquals("org.litespring.service.v1.PetStoreService",bd.getBeanClassName());
-
-        PetStoreService petStoreService = (PetStoreService)factory.getBean("petStore");
-
-        assertNotNull(petStoreService);
-
-        PetStoreService petStoreService1 = (PetStoreService)factory.getBean("petStore");
-
-        assertTrue(petStoreService.equals(petStoreService1));
-
-        // prototype 测试
-        BeanDefinition prototypeStore = factory.getBeanDefinition("prototypeStore");
-
-        assertTrue(prototypeStore.isPrototype());
-
-        assertFalse(prototypeStore.isSingleton());
-
-        assertEquals(BeanDefinition.SCOPE_PROTOTYPE,prototypeStore.getScope());
-
-        PrototypeService prototypeService = (PrototypeService)factory.getBean("prototypeStore");
-
-        assertNotNull(prototypeService);
-
-        PrototypeService prototypeService1 = (PrototypeService)factory.getBean("prototypeStore");
-
-        assertFalse(prototypeService.equals(prototypeService1));
-
     }
 
     @Test

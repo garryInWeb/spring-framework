@@ -39,6 +39,10 @@ class TruePointcut implements Pointcut, Serializable {
 		return ClassFilter.TRUE;
 	}
 
+	/**
+	 * TODO 为什么这里都设计成单件模式
+	 * @return
+	 */
 	@Override
 	public MethodMatcher getMethodMatcher() {
 		return MethodMatcher.TRUE;

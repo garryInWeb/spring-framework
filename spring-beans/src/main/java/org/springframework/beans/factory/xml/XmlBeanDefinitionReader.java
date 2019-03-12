@@ -324,6 +324,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		}
 		// 用于记录已经加载的资源
 		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
+
+		System.out.println(currentResources);
 		if (currentResources == null) {
 			currentResources = new HashSet<EncodedResource>(4);
 			this.resourcesCurrentlyBeingLoaded.set(currentResources);

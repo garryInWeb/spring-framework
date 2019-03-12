@@ -28,7 +28,7 @@ import org.springframework.aop.Pointcut;
  * <p>This is the most commonly used Advisor implementation. It can be used
  * with any pointcut and advice type, except for introductions. There is
  * normally no need to subclass this class, or to implement custom Advisors.
- *
+ * 通知器，定义使用哪个通知并在哪个关注点使用它
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #setPointcut
@@ -37,6 +37,7 @@ import org.springframework.aop.Pointcut;
 @SuppressWarnings("serial")
 public class DefaultPointcutAdvisor extends AbstractGenericPointcutAdvisor implements Serializable {
 
+	// TruePointcut.INSTANCE，单件模式
 	private Pointcut pointcut = Pointcut.TRUE;
 
 

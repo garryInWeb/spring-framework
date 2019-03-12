@@ -73,11 +73,11 @@ public class JdkRegexpMethodPointcut extends AbstractRegexpMethodPointcut {
 	 */
 	@Override
 	protected boolean matches(String pattern, int patternIndex) {
-		Matcher matcher = this.compiledPatterns[patternIndex].matcher(pattern);
-		return matcher.matches();
-	}
+	 Matcher matcher = this.compiledPatterns[patternIndex].matcher(pattern);
+	 return matcher.matches();
+	 }
 
-	/**
+	 /**
 	 * Returns {@code true} if the exclusion {@link Pattern} at index {@code patternIndex}
 	 * matches the supplied candidate {@code String}.
 	 */
