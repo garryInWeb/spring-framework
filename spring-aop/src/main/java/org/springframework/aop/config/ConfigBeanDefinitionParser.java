@@ -215,6 +215,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);
 				if (isAdviceNode(node, parserContext)) {
+					// 判断 aspect内是否有切面
 					if (!adviceFoundAlready) {
 						adviceFoundAlready = true;
 						if (!StringUtils.hasText(aspectName)) {
